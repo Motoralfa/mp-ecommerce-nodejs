@@ -76,16 +76,12 @@ app.post('/payment-process', function (req, res) {
             pending:p,
             failure:f
         },
-        redirect_urls:{
-            success:s,
-            pending:p,
-            failure:f
-        },
         auto_return:"approved"
 
     };
     console.log(fullUrl)
     mercadopago.preferences.create(preference).then((response) => {
+        
         res.render('detail', {id:response.body.id, price:req.body.price, title:req.body.title, img:req.body.img});
         // res.status(200).send(response.body);
         console.log(response.body)
