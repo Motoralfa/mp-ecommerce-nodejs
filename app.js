@@ -14,6 +14,8 @@ app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
+// Configurar cabeceras y cors
+app.use('/assets',express.static('assets'))
 
 // parse application/json
 app.use(bodyParser.json())
@@ -36,8 +38,9 @@ app.get('/approved', function (req, res) {
 });
 
 app.post('/payment-process', function (req, res) {
+    //se crea una url de las imagenes.
     var image_url = req.protocol + '://' + req.get('host') +req.body.img.substring(1);
-    console.log(image_url)
+    //se crea el item, algunos datos son recibidos en el body y otros estan hardcodeados con el proposito del examen.
     var item = { 
         id: "1234",
         title: req.body.title,
@@ -55,7 +58,10 @@ app.post('/payment-process', function (req, res) {
         phone: { area_code: "011", number: 22223333 },
         address: { zip_code: "1111", street_name: "Falsa", street_number: 123 }
     };
+    //external reference hardcode
     var external_reference = 'ABCD1234';
+
+    //full url for notifications
     var fullUrl = req.protocol + '://' + req.get('host') + '/notifications';
 
     //back urls
@@ -81,10 +87,7 @@ app.post('/payment-process', function (req, res) {
     };
     console.log(fullUrl)
     mercadopago.preferences.create(preference).then((response) => {
-        
         res.render('detail', {id:response.body.id, price:req.body.price, title:req.body.title, img:req.body.img});
-        // res.status(200).send(response.body);
-        console.log(response.body)
     }).catch((error) => {
         console.log(error)
         res.status(500).send(error);
