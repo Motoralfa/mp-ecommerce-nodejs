@@ -15,7 +15,7 @@ app.set('view engine', 'handlebars');
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // Configurar cabeceras y cors
-app.use('/assets',express.static('assets'))
+app.use('/assets', express.static('assets'))
 
 // parse application/json
 app.use(bodyParser.json())
