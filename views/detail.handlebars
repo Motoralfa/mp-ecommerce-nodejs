@@ -1,3 +1,4 @@
+
 <div class="as-search-wrapper" role="main">
     <div class="as-navtuck-wrapper">
         <div class="as-l-fullwidth  as-navtuck" data-events="event52">
@@ -105,7 +106,7 @@
                                             </button>
                                         </div>
                                         <div class="modal-body" >
-                                            <object data="{{init_point}}" data-elements-color="#8e44ad" style="width: 100%; height:700px">
+                                            <object data="https://www.mercadopago.com.ar/checkout/v1/modal?pref_id={{id}}" data-elements-color="#8e44ad" style="width: 100%; height:700px">
                                             </object>
                                         </div>
                                         <div class="modal-footer">
@@ -116,8 +117,13 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <button  data-elements-color="#8e44ad" class="btn btn-success" data-toggle="modal" data-target="#exampleModalScrollable">Pagar la compra</button>
+                           
+                            {{!-- <button   class="btn btn-success" data-toggle="modal" data-target="#exampleModalScrollable">Pagar la compra</button> --}}
+                            <form data-elements-color="#8e44ad" action="https://www.mercadopago.com.ar/checkout/v1/modal" method="get">
+                            <input type="hidden" name="pref_id" value="{{id}}">
+                              <button type="submit" class="mercadopago-button" formmethod="get">Pagar</button>  
+                            </form>
+                            
                         </div>
                     </div>
                 </div>

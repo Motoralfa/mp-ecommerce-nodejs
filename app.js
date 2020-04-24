@@ -48,7 +48,8 @@ app.post('/payment-process', function (req, res) {
     };
     //En este caso los datos del pagador etan hardcodeados pero se deberían obtener desde una base de datos o mediante el formulario.
     var payer = {
-        name: "Lalo Landa",
+        name: "Lalo",
+        surname:"Landa",
         identification: { type: "DNI", number: "22333444" },
         email: "test_user_63274575@testuser.com",
         phone: { area_code: "011", number: 22223333 },
@@ -75,13 +76,19 @@ app.post('/payment-process', function (req, res) {
             pending:p,
             failure:f
         },
+        redirect_urls:{
+            success:s,
+            pending:p,
+            failure:f
+        },
         auto_return:"approved"
 
     };
     console.log(fullUrl)
     mercadopago.preferences.create(preference).then((response) => {
-        res.render('detail', {init_point:response.body.sandbox_init_point, price:req.body.price, title:req.body.title, img:req.body.img});
+        res.render('detail', {id:response.body.id, price:req.body.price, title:req.body.title, img:req.body.img});
         // res.status(200).send(response.body);
+        console.log(response.body)
     }).catch((error) => {
         console.log(error)
         res.status(500).send(error);
