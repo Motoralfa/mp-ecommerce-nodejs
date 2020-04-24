@@ -75,7 +75,7 @@ app.post('/payment-process', function (req, res) {
         ],
         payer: payer,
         external_reference: external_reference,
-        payment_methods: { excluded_payment_methods: [{ id: 'amex' }, { id: 'atm' }], installments: 6 },
+        payment_methods: { excluded_payment_methods: [{ id: 'amex' }], installments: 6 , excluded_payment_types:[{ id: 'atm' }]},
         notification_url: fullUrl,
         back_urls:{
             success:s,
@@ -85,8 +85,8 @@ app.post('/payment-process', function (req, res) {
         auto_return:"approved"
 
     };
-    console.log(fullUrl)
     mercadopago.preferences.create(preference).then((response) => {
+        console.log(response.body)
         res.render('detail', {id:response.body.id, price:req.body.price, title:req.body.title, img:req.body.img});
     }).catch((error) => {
         console.log(error)
