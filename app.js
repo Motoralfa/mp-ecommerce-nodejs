@@ -86,7 +86,7 @@ app.post('/payment-process', function (req, res) {
 
     };
     mercadopago.preferences.create(preference).then((response) => {
-        console.log(response.body)
+        console.log(response.body.id)
         res.render('detail', {id:response.body.id, price:req.body.price, title:req.body.title, img:req.body.img});
     }).catch((error) => {
         console.log(error)
@@ -99,6 +99,7 @@ app.post('/payment-process', function (req, res) {
 app.post('/notifications', (req,res)=>{
     var topic =req.body.topic;
     var id= req.body.id;
+    console.log(id);
     //aca podemos procesar los datos recibidos;
     res.status(200).send('OK');
 })
